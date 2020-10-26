@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import logo from './logo.svg'
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function fact(n) {
+    if (n <= 1) return n
+    return n * fact( n - 1 )
 }
 
-export default App;
+function App() {
+    const [text, setText] = useState('')
+    let message = 'il testo inserito non è un numero: impossibile calcolare il fattoriale'
+
+    if (!isNaN(text)) {
+        const value = parseInt(text)
+        if (value > 0)
+            message = `${value}! = ${ fact(value) }`
+    }
+
+    return (
+        <div className="App">
+            <input value={ text } onChange={ (e) => setText( e.target.value ) } />
+            <div>{ message }</div>
+        </div>
+    )
+}
+
+export default App
